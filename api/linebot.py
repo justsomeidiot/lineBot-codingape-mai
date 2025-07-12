@@ -126,11 +126,13 @@ def handle_message(event):
                         image_url = 'https://images.pexels.com/photos/302899/pexels-photo-302899.jpeg',
                         action = URIAction(
                             label = '伯朗咖啡',
-                            uri = 'https://www.mrbrown.com.tw/'))                       
+                            uri = 'https://www.mrbrown.com.tw/'))   
+            
                 ])
             )
 
         line_bot_api.reply_message(event.reply_token, image_carousel_template)
-
+        reply_message = "Hello world"
+        line_bot_api.reply_message(event.reply_token, TextSendMessage(text=reply_message))
 if __name__ == "__main__":
     app.run()
