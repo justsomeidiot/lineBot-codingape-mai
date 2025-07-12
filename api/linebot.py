@@ -110,7 +110,7 @@ def handle_message(event):
 
 
     #image carousel樣板
-    if event.message.text == 'image carousel':
+    if event.message.text == 'reminder':
         image_carousel_template = TemplateSendMessage(
             alt_text = 'image carousel template',
             template = ImageCarouselTemplate(
