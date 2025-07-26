@@ -8,6 +8,7 @@ import os
 import requests
 from bs4 import BeautifulSoup
 import random
+import time
 
 line_bot_api = LineBotApi(os.getenv("LINE_CHANNEL_ACCESS_TOKEN"))
 line_handler = WebhookHandler(os.getenv("LINE_CHANNEL_SECRET"))
@@ -110,14 +111,15 @@ def handle_message(event):
 
 
     #image carousel樣板
-    if event.message.text == 'reminder':
+    if 'reminder' in event.message.text:
+        'time' == event.message.number 
+        time.sleep('time')
         reply_message = "Hello"
         line_bot_api.reply_message(event.reply_token, TextSendMessage(text=reply_message))
         image_carousel_template = TemplateSendMessage(
             alt_text = 'image carousel template',
             template = ImageCarouselTemplate(
-                columns = [
-                    #第一張圖
+                columns = [                    #第一張圖
                     ImageCarouselColumn(
                         image_url = 'https://images.pexels.com/photos/302899/pexels-photo-302899.jpeg',
                         action = URIAction(
