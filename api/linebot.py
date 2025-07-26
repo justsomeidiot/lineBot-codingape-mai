@@ -115,7 +115,7 @@ def handle_message(event):
         text = event.message.text
         text_strip = text.strip()     
         parts = text.split(maxsplit=2)
-        time.sleep(parts[1])
+        time.sleep(int(parts[1]))
         reply_message = "Hello"
         line_bot_api.reply_message(event.reply_token, TextSendMessage(text=reply_message))
         image_carousel_template = TemplateSendMessage(
