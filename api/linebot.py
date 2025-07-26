@@ -112,8 +112,10 @@ def handle_message(event):
 
     #image carousel樣板
     if 'reminder' in event.message.text:
-        'time' == event.message.number 
-        time.sleep('time')
+        text = event.message.text
+        text_strip = text.strip()     
+        parts = text.split(maxsplit=2)
+        time.sleep(parts[1])
         reply_message = "Hello"
         line_bot_api.reply_message(event.reply_token, TextSendMessage(text=reply_message))
         image_carousel_template = TemplateSendMessage(
