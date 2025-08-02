@@ -115,12 +115,12 @@ def handle_message(event):
         text = event.message.text
         text_strip = text.strip()     
         parts = text.split(maxsplit=2)
-        context = text.split(maxsplit=3)
         time.sleep(int(parts[1]))
+        msgtime = parts[1]
         reply_message = parts[2]
         line_bot_api.reply_message(event.reply_token, TextSendMessage(text=reply_message))
         image_carousel_template = TemplateSendMessage(
-            alt_text = 'image carousel template',
+            alt_text = reply_message +"in" + msgtime,
             template = ImageCarouselTemplate(
                 columns = [                    #第一張圖
                     ImageCarouselColumn(
