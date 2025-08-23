@@ -119,6 +119,7 @@ def handle_message(event):
         time.sleep(int(parts[1]))
         msgtime = parts[1]
         reply_message = parts[2]
+        line_bot_api.reply_message(event.reply_token, TextSendMessage(text=reply_message))
         text_message =  TextSendMessage(text=reply_message)
         image_carousel_template = TemplateSendMessage(
             alt_text = reply_message +"in" + msgtime,
@@ -138,8 +139,8 @@ def handle_message(event):
             
                 ])
             )
-        message =[text_message, image_carousel_template]
-        line_bot_api.push_message(event.reply_token, message)     
+       line_bot_api.reply_message(event.reply_token, image_carousel_template)
          
+
 if __name__ == "__main__":
     app.run()
