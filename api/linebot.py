@@ -112,7 +112,7 @@ def handle_message(event):
 
 
     #image carousel樣板
-    if 'reminder' in event.message.text:
+    if 'Reminder' in event.message.text:
         text = event.message.text
         text_strip = text.strip()     
         parts = text.split(maxsplit=2)
