@@ -121,10 +121,6 @@ def handle_message(event):
             msgtime = parts[1]
             reply_message = parts[2]
 
-            reminders.append({
-        "time": msgtime,
-        "message": reply_message
-    })
             line_bot_api.reply_message(event.reply_token, TextSendMessage(text=reply_message))
             text_message =  TextSendMessage(text=reply_message)
             image_carousel_template = TemplateSendMessage(
