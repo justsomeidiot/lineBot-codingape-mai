@@ -9,6 +9,7 @@ import requests
 from bs4 import BeautifulSoup
 import random
 import time
+reminders = []
 
 line_bot_api = LineBotApi(os.getenv("LINE_CHANNEL_ACCESS_TOKEN"))
 line_handler = WebhookHandler(os.getenv("LINE_CHANNEL_SECRET"))
@@ -111,34 +112,45 @@ def handle_message(event):
 
 
 
-    #image carousel樣板
-    if 'Reminder' in event.message.text:
-        text = event.message.text
-        text_strip = text.strip()     
-        parts = text.split(maxsplit=2)
-        time.sleep(int(parts[1]))
-        msgtime = parts[1]
-        reply_message = parts[2]
-        line_bot_api.reply_message(event.reply_token, TextSendMessage(text=reply_message))
-        text_message =  TextSendMessage(text=reply_message)
-        image_carousel_template = TemplateSendMessage(
-            alt_text = reply_message +"in" + msgtime,
-            template = ImageCarouselTemplate(
-                columns = [                    #第一張圖
-                    ImageCarouselColumn(
-                        image_url = 'https://images.pexels.com/photos/302899/pexels-photo-302899.jpeg',
-                        action = URIAction(
-                            label = '伯朗咖啡',
-                            uri = 'https://www.mrbrown.com.tw/')),
-                    #第二張圖
-                    ImageCarouselColumn(
-                        image_url = 'https://images.pexels.com/photos/302899/pexels-photo-302899.jpeg',
-                        action = URIAction(
-                            label = '伯朗咖啡',
-                            uri = 'https://www.mrbrown.com.tw/'))   
-            
-                ])
-            )
+        #image carousel樣板
+        if 'Reminder' in event.message.text:
+            text = event.message.text
+            text_strip = text.strip()     
+            parts = text.split(maxsplit=2)
+            time.sleep(int(parts[1]))
+            msgtime = parts[1]
+            reply_message = parts[2]
+            line_bot_api.reply_message(
+    event.reply_token,
+    [
+        TextSendMessage(text=f"⏳ Reminder set: {parts[2]} in {parts[1]} seconds."),
+        TextSendMessage(text="View all reminders here: https://your-server.com/reminders")
+    ]
+)
+            reminders.append({
+        "time": msgtime,
+        "message": reply_message
+    })
+            line_bot_api.reply_message(event.reply_token, TextSendMessage(text=reply_message))
+            text_message =  TextSendMessage(text=reply_message)
+            image_carousel_template = TemplateSendMessage(
+                alt_text = reply_message +"in" + msgtime,
+                template = ImageCarouselTemplate(
+                    columns = [                    #第一張圖
+                        ImageCarouselColumn(
+                            image_url = 'https://images.pexels.com/photos/302899/pexels-photo-302899.jpeg',
+                            action = URIAction(
+                                label = '伯朗咖啡',
+                                uri = 'https://www.mrbrown.com.tw/')),
+                        #第二張圖
+                        ImageCarouselColumn(
+                            image_url = 'https://images.pexels.com/photos/302899/pexels-photo-302899.jpeg',
+                            action = URIAction(
+                                label = '伯朗咖啡',
+                                uri = 'https://www.mrbrown.com.tw/'))   
+                
+                    ])
+                )
         line_bot_api.reply_message(event.reply_token, image_carousel_template)
          
 
