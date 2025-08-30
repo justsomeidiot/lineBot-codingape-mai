@@ -120,13 +120,7 @@ def handle_message(event):
             time.sleep(int(parts[1]))
             msgtime = parts[1]
             reply_message = parts[2]
-            line_bot_api.reply_message(
-    event.reply_token,
-    [
-        TextSendMessage(text=f"⏳ Reminder set: {parts[2]} in {parts[1]} seconds."),
-        TextSendMessage(text="View all reminders here: https://your-server.com/reminders")
-    ]
-)
+
             reminders.append({
         "time": msgtime,
         "message": reply_message
